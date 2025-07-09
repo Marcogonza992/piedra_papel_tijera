@@ -1,16 +1,32 @@
 let humanScore = 0;
 let computerScore = 0;
 let humanChoice;
-let computerChoice;     
-function getHumanChoice() {
-    const choice = ['piedra', 'papel', 'tijera'];
-    
-    do {
-        humanChoice = prompt('Elige: piedra, papel o tijera').toLowerCase();
-    } while (!choice.includes(humanChoice));
-    return humanChoice;
-}
+let computerChoice;    
+let i =0; 
 
+const btn =document.querySelector('#btn');
+const btn2 =document.querySelector('#btn2');
+const btn3 =document.querySelector('#btn3');
+
+btn.addEventListener("click",function(e){
+    humanChoice = 'papel';
+    getComputerChoice();
+    playGame();
+    i++;
+});
+btn2.addEventListener("click",function(e){
+    humanChoice = 'piedra' ;
+    getComputerChoice();
+    playGame();
+    i++;
+});
+btn3.addEventListener("click",function(e){
+    humanChoice = 'tijera';
+    getComputerChoice();
+    playGame();
+    i++;
+    
+});
 
 
 
@@ -40,16 +56,24 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound(getHumanChoice(), getComputerChoice()));
-    }
+
     
-    if (humanScore > computerScore) {
-        console.log(`Ganaste el juego! ${humanScore} a ${computerScore}`);
-    } else if (computerScore > humanScore) {
-        console.log(`Perdiste el juego! ${computerScore} a ${humanScore}`);
-    } else {
-        console.log(`El juego terminó en empate! ${humanScore} a ${computerScore}`);
-    }
+    const result = playRound(humanChoice, computerChoice);
+    const resultDiv = document.querySelector('#result');
+    resultDiv.textContent = result;
+     if (i === 5) {
+       resultDiv.textContent = "";
+        if (humanScore > computerScore) {
+            const resulscore = document.querySelector('#score');
+            resulscore.textContent = "Ganaste el juego! " + humanScore + " a " + computerScore;
+        } else if (computerScore > humanScore) {
+            const resulscore = document.querySelector('#score');
+            resulscore.textContent = "Perdiste el juego! " + computerScore + " a " + humanScore;
+        } else {
+            const resulscore = document.querySelector('#score');
+            resulscore.textContent = "El juego termina en empate! " + humanScore + " a " + computerScore;
+        }
+     }
 }
-console.log(playGame());
+
+
